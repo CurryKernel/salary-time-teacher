@@ -1,0 +1,2 @@
+1fc137c722e6cec6a389dc7068d03545ed28faa1a68f7c4c3f1d5a6227d40e4b  salary-time-Setup-1.0.0.exe
+a08fa2b0ddcb7323161c70dc212634baa18ae1a2bed8eba0d5b2f2e22089a4f1  salary-time-Portable-1.0.0.exe

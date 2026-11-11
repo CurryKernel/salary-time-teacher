@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:;">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>salary-time · 教师版</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="widget" id="widget">
+    <header class="titlebar">
+      <div class="brand">
+        <span class="logo">¥</span>
+        <span class="title" id="headerTitle">salary-time</span>
+        <span class="version-chip">教师版</span>
+      </div>
+      <div class="actions">
+        <button type="button" class="icon-btn" id="pinBtn" title="始终置顶" aria-label="始终置顶">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor"
+               stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 17v5"></path>
+            <path d="M9 3h6l-1 7 3 3v2H7v-2l3-3-1-7z"></path>
+          </svg>
+        </button>
+        <button type="button" class="icon-btn" id="settingsBtn" title="设置" aria-label="设置">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor"
+               stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.7 1.7 0 0 0-1.87-.34 1.7 1.7 0 0 0-1 1.55V21a2 2 0 1 1-4 0v-.09a1.7 1.7 0 0 0-1.11-1.55 1.7 1.7 0 0 0-1.87.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-1.55-1H3a2 2 0 1 1 0-4h.09A1.7 1.7 0 0 0 4.6 8.9a1.7 1.7 0 0 0-.34-1.87l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.7 1.7 0 0 0 9 4.6h.08a1.7 1.7 0 0 0 1-1.55V3a2 2 0 1 1 4 0v.09a1.7 1.7 0 0 0 1 1.55 1.7 1.7 0 0 0 1.87-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.7 1.7 0 0 0-.34 1.87V9c0 .69.42 1.31 1.06 1.57H21a2 2 0 1 1 0 4h-.09a1.7 1.7 0 0 0-1.51.99z"></path>
+          </svg>
+        </button>
+        <button type="button" class="icon-btn" id="hideBtn" title="隐藏到托盘" aria-label="隐藏到托盘">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor"
+               stroke-width="2" stroke-linecap="round">
+            <path d="M5 12h14"></path>
+          </svg>
+        </button>
+        <button type="button" class="icon-btn icon-btn-quit" id="quitBtn" title="退出应用" aria-label="退出应用">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor"
+               stroke-width="2" stroke-linecap="round">
+            <path d="M6 6l12 12"></path>
+            <path d="M18 6L6 18"></path>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- 主界面 -->
+    <main class="view main-view" id="mainView">
+      <section class="hero">
+        <div class="hero-head">
+          <span class="hero-label">今日已赚 <span class="hero-date" id="dateLabel"></span></span>
+          <span class="badge" id="dayBadge">工作日</span>
+        </div>
+        <div class="amount">
+          <span class="currency">¥</span><span class="amount-value" id="todayAmount">0.00</span>
+        </div>
+        <div class="status-line">
+          <span class="pulse" id="pulse"></span>
+          <span id="statusText">正在计算…</span>
+        </div>
+        <div class="progress"><div class="progress-fill" id="dayBar"></div></div>
+        <div class="progress-meta">
+          <span>今日进度 <b id="dayPercent">0.0%</b></span>
+          <span id="dayRange">08:20 – 16:30 · 午休 2h40m</span>
+        </div>
+      </section>
+
+      <section class="cards">
+        <article class="card">
+          <div class="card-head">
+            <span class="card-label">本月累计</span>
+            <span class="card-tag" id="monthTag">11月</span>
+          </div>
+          <div class="card-value" id="monthAmount">¥0.00</div>
+          <div class="card-sub" id="monthSub">预计 ¥0.00</div>
+          <div class="mini-progress"><div class="mini-fill" id="monthBar"></div></div>
+        </article>
+        <article class="card">
+          <div class="card-head">
+            <span class="card-label">本周累计</span>
+            <span class="card-tag" id="weekTag">-</span>
+          </div>
+          <div class="card-value" id="weekAmount">¥0.00</div>
+          <div class="card-sub" id="weekSub">预计 ¥0.00</div>
+          <div class="mini-progress"><div class="mini-fill" id="weekBar"></div></div>
+        </article>
+      </section>
+
+      <footer class="footer">
+        <span id="rateInfo">日薪 ¥0.00 · 课时 ¥0.00</span>
+        <span class="mode-chip" id="modeChip">6 节/天</span>
+      </footer>
+    </main>
+
+    <!-- 设置界面 -->
+    <main class="view settings-view" id="settingsView" hidden>
+      <div class="settings-scroll">
+        <section class="group">
+          <h3>薪资设置</h3>
+          <div class="grid2">
+            <label class="field">
+              <span class="field-label">基本工资</span>
+              <span class="input-box">
+                <span class="prefix">¥</span>
+                <input id="baseSalary" type="number" min="0" step="100" inputmode="decimal" autocomplete="off">
+                <span class="suffix">/月</span>
+              </span>
+            </label>
+            <label class="field">
+              <span class="field-label">房补</span>
+              <span class="input-box">
+                <span class="prefix">¥</span>
+                <input id="housingAllowance" type="number" min="0" step="100" inputmode="decimal" autocomplete="off">
+                <span class="suffix">/月</span>
+              </span>
+            </label>
+          </div>
+          <div class="field-row">
+            <span class="field-label">课时单价</span>
+            <span class="input-box compact">
+              <span class="prefix">¥</span>
+              <input id="classRate" type="number" min="0" step="1" inputmode="decimal" autocomplete="off">
+              <span class="suffix">/节</span>
+            </span>
+          </div>
+        </section>
+
+        <section class="group">
+          <h3>课时绩效</h3>
+          <div class="grid2">
+            <label class="field">
+              <span class="field-label">上午节数</span>
+              <span class="input-box"><input id="morningClasses" type="number" min="0" max="20" step="1" inputmode="numeric" autocomplete="off"></span>
+            </label>
+            <label class="field">
+              <span class="field-label">上午系数</span>
+              <span class="input-box"><input id="morningCoefficient" type="number" min="0" max="5" step="0.1" inputmode="decimal" autocomplete="off"></span>
+            </label>
+            <label class="field">
+              <span class="field-label">下午节数</span>
+              <span class="input-box"><input id="afternoonClasses" type="number" min="0" max="20" step="1" inputmode="numeric" autocomplete="off"></span>
+            </label>
+            <label class="field">
+              <span class="field-label">下午系数</span>
+              <span class="input-box"><input id="afternoonCoefficient" type="number" min="0" max="5" step="0.1" inputmode="decimal" autocomplete="off"></span>
+            </label>
+          </div>
+          <p class="hint" id="classHint"></p>
+        </section>
+
+        <section class="group">
+          <h3>工作时间</h3>
+          <div class="grid2">
+            <label class="field">
+              <span class="field-label">上班时间</span>
+              <span class="input-box"><input id="workStart" type="time" step="60"></span>
+            </label>
+            <label class="field">
+              <span class="field-label">下班时间</span>
+              <span class="input-box"><input id="workEnd" type="time" step="60"></span>
+            </label>
+            <label class="field">
+              <span class="field-label">午休开始</span>
+              <span class="input-box"><input id="lunchStart" type="time" step="60"></span>
+            </label>
+            <label class="field">
+              <span class="field-label">午休结束</span>
+              <span class="input-box"><input id="lunchEnd" type="time" step="60"></span>
+            </label>
+          </div>
+          <p class="hint">午休时段不计薪；周末双休，不计薪。</p>
+        </section>
+
+        <section class="group">
+          <h3>系统</h3>
+          <label class="switch-row">
+            <span class="switch-copy"><span class="switch-title">始终置顶</span></span>
+            <input type="checkbox" class="switch" id="alwaysOnTop">
+          </label>
+          <label class="switch-row" id="openAtLoginRow">
+            <span class="switch-copy"><span class="switch-title">开机自启动</span></span>
+            <input type="checkbox" class="switch" id="openAtLogin">
+          </label>
+        </section>
+
+        <section class="preview">
+          <div class="preview-row"><span>固定日薪（基本工资 + 房补）</span><b id="previewFixed">¥0.00</b></div>
+          <div class="preview-row"><span>课时费 / 天</span><b id="previewClass">¥0.00</b></div>
+          <div class="preview-row"><span>日合计</span><b id="previewDay">¥0.00</b></div>
+          <div class="preview-row"><span>本月预计</span><b id="previewMonth">¥0.00</b></div>
+          <p class="preview-note" id="previewNote"></p>
+        </section>
+      </div>
+
+      <footer class="settings-footer">
+        <button type="button" class="btn ghost" id="resetBtn">恢复默认</button>
+        <button type="button" class="btn primary" id="doneBtn">完成</button>
+      </footer>
+    </main>
+  </div>
+
+  <script src="../shared/defaults.js"></script>
+  <script src="../shared/calc.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

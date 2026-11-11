@@ -1,0 +1,85 @@
+{
+  "name": "salary-time",
+  "productName": "salary-time",
+  "version": "1.0.0",
+  "description": "教师工资实时统计：基本工资 + 房补 + 课时绩效",
+  "main": "src/main.js",
+  "type": "commonjs",
+  "author": "CurryKernel",
+  "license": "MIT",
+  "scripts": {
+    "start": "node scripts/electron-run.js",
+    "dev": "node scripts/electron-run.js",
+    "test": "node --test test/calc.test.js",
+    "test:ui": "node scripts/electron-run.js test/ui-smoke.js",
+    "icons": "python3 scripts/generate_icons.py",
+    "dist:win": "electron-builder --win",
+    "dist:win:portable": "electron-builder --win portable",
+    "pack:dir": "electron-builder --dir"
+  },
+  "build": {
+    "appId": "com.currykernel.salarytime.teacher",
+    "copyright": "Copyright © 2026 CurryKernel",
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "files": [
+      "src/**/*",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "build/icon.png",
+        "to": "icon.png"
+      },
+      {
+        "from": "build/tray.png",
+        "to": "tray.png"
+      }
+    ],
+    "asar": true,
+    "compression": "normal",
+    "electronDownload": {
+      "mirror": "https://npmmirror.com/mirrors/electron/"
+    },
+    "win": {
+      "icon": "build/icon.ico",
+      "executableName": "salary-time",
+      "signExecutable": false,
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        },
+        {
+          "target": "portable",
+          "arch": ["x64"]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowElevation": true,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "salary-time 教师版",
+      "installerLanguages": ["zh_CN"],
+      "language": "2052",
+      "artifactName": "salary-time-Setup-${version}.${ext}",
+      "deleteAppDataOnUninstall": false,
+      "installerIcon": "build/icon.ico",
+      "uninstallerIcon": "build/icon.ico",
+      "installerHeaderIcon": "build/icon.ico"
+    },
+    "portable": {
+      "artifactName": "salary-time-Portable-${version}.${ext}"
+    }
+  },
+  "devDependencies": {
+    "electron": "^45.3.0",
+    "electron-builder": "^26.18.0"
+  }
+}
